@@ -41,9 +41,11 @@
 </body>
 
 <script>
-  let randomNumber = Math.random() * 10;
-
-  const ATTEMPS = 5;
+	//Debemos colocar Math Floor ya que este nos devuelve numero enteros y la sentencia se debe multiplicar por 100 ya que es de 1 a 100
+  let randomNumber = Math.floor(Math.random() * 100)+1;
+//Declaracion de Variables
+	//La Variable ATTEMPS debe ser igualada a 10 ya que es el numero de intentos
+  const ATTEMPS = 10;
   const guesses = document.querySelector('.guesses');
   const lastResult = document.querySelector('.lastResult');
   const lowOrHi = document.querySelector('lowOrHi');
@@ -52,7 +54,8 @@
 
   let guessCount = 1;
   let resetButton;
-
+	
+	//Inicializacion de Funcion
   function checkGuess() {
 
     let userGuess = guessField.value;
@@ -62,20 +65,22 @@
     guesses.textContent += userGuess + ' ';
 
     if(userGuess === randomNumber) {
-      lastResult.textContent = '!!!Pérdistes!!!';
+      //Se realizo cambio de mensaje ya que este esta al revez
+      lastResult.textContent = '!!!Felicidades Ganaste!!!';
       lastResult.style.backgroundColor = 'black';
       lowOrHi.textContent = '';
       setGameOver();
     } else if(guessCount === ATTEMPS) {
-      lastResult.textContent = 'Felicitaciones! adivinaste el número!';
+      //Mensaje modificado ya que estaba erroneo
+      lastResult.textContent = 'Perdiste debes intentar de nuevo!';
       lastResult.style.backgroundColor = 'red';
       setGameOver();
     } else {
-      lastResult.textContent = 'Incorrecto! ';
+      lastResult.textContent = 'Numero Incorrecto! ';
       lastResult.style.backgroundColor = 'green';
-      if(userGuess < randomNumber) {
+      if(userGuess > randomNumber) {
         lowOrHi.textContent = 'El número es mayor!';
-      } else if(userGuess > randomNumber) {
+      } else if(userGuess < randomNumber) {
         lowOrHi.textContent = 'El número es menor!';
       }
     }
@@ -100,18 +105,16 @@
 
 	  const resetParas = document.querySelectorAll('.resultParas p');
 	  for(let i = 0; i < resetParas.length; i++) {
-		  resetParas[i].textContent = '';
+          resetParas[i].textContent = '';
 	  }
 	  resetButton.parentNode.removeChild(resetButton);
-
 	  guessField.disabled = false;
 	  guessSubmit.disabled = false;
 	  guessField.value = '';
 	  guessField.focus();
-
 	  lastResult.style.backgroundColor = 'white';
-
-	  randomNumber = Math.floor(Math.random()) + 1;
+	  //Faltaba hacer referencia a la cantidad de numeros aleatorios
+	  randomNumber = Math.floor(Math.random()*100) + 1;
   }
 </script>
 </html>
